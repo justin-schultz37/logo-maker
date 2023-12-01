@@ -4,6 +4,7 @@ const { Shapes } = require('./lib/shapes');
 const generateSVG = require('./lib/generateSVG');
 const colorNames = require('color-name-list');
 
+// Function to validate color input (CSS color names or hex)
 const validateColor = (input) => {
     const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     const validCSSColorNames = colorNames.map((color) => color.name.toLowerCase());
@@ -15,6 +16,7 @@ const validateColor = (input) => {
     );
 };
 
+// Inquirer prompt to gather user input for logo creation
 inquirer
     .prompt([
         {
@@ -26,7 +28,7 @@ inquirer
         {
             type: 'input',
             name: 'textColor',
-            message: 'Enter text color (css or hex):',
+            message: 'Enter text color (CSS or hex):',
             validate: validateColor,
         },
         {
@@ -43,10 +45,13 @@ inquirer
         },
     ])
     .then((response) => {
+        // Destructure response and extract shapecolor
         const { shape, shapecolor, ...data } = response;
+        // Create Shapes instance with shapecolor
         const { triangle, circle, square } = Shapes({ shapecolor });
         let SVGContent = '';
 
+        // Generate SVG content based on the selected shape
         switch (shape) {
             case 'triangle':
                 SVGContent = generateSVG(data, triangle);
@@ -62,9 +67,11 @@ inquirer
                 return;
         }
 
+        // Write SVG content to file
         writeToFile('logo.svg', SVGContent);
     });
 
+// Function to write SVG content to a file
 function writeToFile(fileName, SVGContent) {
     fs.writeFile(fileName, SVGContent, (error) => {
         if (error) {
@@ -74,5 +81,3 @@ function writeToFile(fileName, SVGContent) {
         }
     });
 }
-
-
