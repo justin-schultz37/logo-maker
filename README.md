@@ -6,9 +6,10 @@ An application that takes user inputs such as text length, color and shape to ge
 ![Article Preview](./lib/assets/Screenshot%202023-12-01%20123842.png)     
 ## Installation
 Node Packages
--npm install color-name-list
--npm install inquirer
--npm install jest
+<p>npm install color-name-list</p>
+<p>npm install inquirer</p>
+<p>npm install jest</p>
+
 ## Usage
 Used to make a simple logo. 
     
